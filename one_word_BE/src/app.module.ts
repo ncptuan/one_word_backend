@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '123456',
+      password: '123455', // typo error :D
       database: 'task_management',
       autoLoadEntities: true,
       synchronize: true,
