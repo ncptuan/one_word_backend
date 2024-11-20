@@ -6,17 +6,8 @@ import * as bcrypt from "bcrypt";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User>{
-    async createUser(authCredential: AuthCredential): Promise<void>{
-        const { username, password } = authCredential;
 
-        const salt = await bcrypt.genSalt()
-        const hashedPassword = await bcrypt.hash(password, salt)
-
-        const user = this.create({
-            username,
-            password: hashedPassword,
-        });
-        
+    async createUser(user: User): Promise<void>{
         try{
            await this.save(user)
         } catch(error){
@@ -27,7 +18,17 @@ export class UserRepository extends Repository<User>{
                 throw new InternalServerErrorException();
             }
         }
-        
     }
+
+    // async signIn(authCredential: AuthCredential): Promise<string>{
+    //     const { username, password } = authCredential;
+
+    //     const user = await this.findOne({username});
+
+    //     if (user && (await bcrypt.compare(password, user.password))) {
+    //         return "successful"
+    //     }
+    //     return "false"
+    // }
 
 }
